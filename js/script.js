@@ -74,5 +74,13 @@ new Vue({
         }
       }
     }
+  },
+  computed: {
+    healPlayer: function() {
+      return this.player.heal < 0 ? 0 : this.player.heal;
+    },
+    healMonster: function() {
+      return this.monster.heal < 0 ? 0 : this.monster.heal;
+    }
   }
 });
