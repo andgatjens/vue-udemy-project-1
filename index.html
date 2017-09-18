@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+
+  <body>
+    <div id="app">
+      <section class="row">
+        <div class="small-6 columns">
+          <h1 class="text-center">{{ player.name }}</h1>
+          <div class="healthbar">
+            <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: player.heal+'%'}">
+              <span>{{ player.heal }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="small-6 columns">
+          <h1 class="text-center">{{ monster.name }}</h1>
+          <div class="healthbar">
+            <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: monster.heal+'%'}">
+              <span>{{ monster.heal }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section v-if="!game.start" class="row controls">
+        <div class="small-12 columns">
+          <h2 v-if="player.heal <= 0 && monster.heal <= 0">Tied!!!</h2>
+          <h2 v-else-if="monster.heal <= 0">You Win!</h2>
+          <h2 v-else-if="player.heal <= 0">You Lose!</h2>
+          <button @click="start" id="start-game">START NEW GAME</button>
+        </div>
+      </section>
+      <section v-else class="row controls">
+        <div class="small-12 columns">
+          <button id="attack" @click="execute('attack')">ATTACK</button>
+          <button id="special-attack" @click="execute('special')">SPECIAL ATTACK</button>
+          <button id="heal" @click="execute('heal')">HEAL</button>
+          <button id="give-up" @click="execute('giveup')">GIVE UP</button>
+        </div>
+      </section>
+      <section v-if="logs.length" class="row log">
+        <div class="small-12 columns">
+          <ul>
+            <template v-for="(log, index) in logs">
+              <li class="text-left">Move #{{ index + 1 }}</li>
+              <li class="player-turn">{{ player.name }} {{ game.text[log.action] }} <span v-if="log.action !== 'heal'">{{ monster.name }}</span> for {{ log.amountPlayer }}</li>
+              <li class="monster-turn">{{ monster.name }} {{ game.text.attack }} {{ player.name }} for {{ log.amountMonster }}</li>
+            </template>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <script src="js/script.js"></script>
+
+  </body>
+
+</html>
