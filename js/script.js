@@ -6,7 +6,8 @@ new Vue({
       text: {
         attack: 'hits',
         heal: 'heal himself'
-      }
+      },
+      moves: 0
     },
     player: {
       heal: '100',
@@ -36,6 +37,9 @@ new Vue({
           return Math.floor(Math.random() * (max - min + 1) + min);
         }
 
+        // Increase Movers
+        this.game.moves++;
+
         // Default Amount Values
         let amountPlayer = random(5, 10),
             amountMonster = random(5, 10);
@@ -58,7 +62,8 @@ new Vue({
           this.player.heal += amountPlayer;
         }
 
-        this.logs.push({
+        this.logs.unshift({
+          moves: this.game.moves,
           action: action,
           amountPlayer,
           amountMonster

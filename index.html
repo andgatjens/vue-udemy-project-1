@@ -48,9 +48,9 @@
         <div class="small-12 columns">
           <ul>
             <template v-for="(log, index) in logs">
-              <li class="text-left">Move #{{ index + 1 }}</li>
-              <li class="player-turn">{{ player.name }} {{ game.text[log.action] }} <span v-if="log.action !== 'heal'">{{ monster.name }}</span> for {{ log.amountPlayer }}</li>
+              <li class="text-left">Move #{{ log.moves }}</li>
               <li class="monster-turn">{{ monster.name }} {{ game.text.attack }} {{ player.name }} for {{ log.amountMonster }}</li>
+              <li class="player-turn">{{ player.name }} {{ game.text[log.action] }} <span v-if="log.action !== 'heal'">{{ monster.name }}</span> for {{ log.amountPlayer }}</li>
             </template>
           </ul>
         </div>
